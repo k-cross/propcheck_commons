@@ -1,0 +1,8 @@
+# Changelog
+
+## Release 0.1.0
+
+### Enhancements
+
+* added Text module for common string generators in elixir
+* added Network module for common internet related structures
