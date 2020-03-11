@@ -15,7 +15,7 @@ defmodule PropCheckCommons.MixProject do
       source_url: "https://github.com/k-cross/propcheck_commons",
       docs: [
         # The main page in the docs
-        main: "PropCheckCommons",
+        main: "readme",
         extras: ["README.md"]
       ]
     ]
@@ -36,7 +36,7 @@ defmodule PropCheckCommons.MixProject do
   end
 
   defp description do
-    "A set of common `generators` for use with `PropCheck` and `ProPEr`."
+    "A set of common generators for use with PropCheck and ProPEr."
   end
 
   defp package do
