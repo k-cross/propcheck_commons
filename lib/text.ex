@@ -1,6 +1,13 @@
 defmodule PropCheckCommons.Text do
   @moduledoc """
   A set of `ProPEr` generators for common _text_ based inputs as elixir strings.
+  For specific character sets, there are always two types of generators:
+
+  1. Character sets, identifiable by ending with `chars()` such as
+  `alphanumeric_chars()`, are made to be simple maximizing composablability.
+
+  2. Other sets contain options that can be set but are in general made to be used
+  for common cases and automatically return Elixir Strings.
   """
 
   use PropCheck
@@ -8,18 +15,28 @@ defmodule PropCheckCommons.Text do
   @control_chars_list Enum.to_list(0x007F..0x009F) ++ Enum.to_list(0x0000..0x001F)
 
   @type proper_type :: :proper_types.type()
+  @type alphanumeric_opts :: [
+    {:raw, boolean()},
+    {:empty, boolean()}
+  ]
+
+  @type printable_opts :: [
+    {:empty, boolean()}
+  ]
 
   @doc """
-  Only alphanumeric characters.
+  A `oneof` character integer range with only alphanumerics.
   """
   @spec alphanumeric_chars() :: proper_type()
   def alphanumeric_chars, do: oneof([range(?A, ?Z), range(?a, ?z), range(?0, ?9)])
 
   @doc """
-  A list with only alphanumeric characters with equal occurence frequency.
+  An Elixir `String` with only alphanumeric characters with equal frequency of occurence.
   """
-  @spec alphanumeric() :: proper_type()
-  def alphanumeric, do: list(alphanumeric_chars())
+  @spec alphanumeric(alphanumeric_opts()) :: proper_type()
+  def alphanumeric(opts \\ [raw: false, empty: true]) do
+    list(alphanumeric_chars())
+  end
 
   @doc """
   Creates a list of printable unicode characters with the following ranges:
